@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "sourceMap": true,
+    "outDir": "lib/esm",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "preserve",
+    "declaration": true,
+    "declarationDir": "types",
+    "target": "esnext",
+    "baseUrl": ".",
+    "emitDeclarationOnly": false,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "importHelpers": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/index.ts"
+, "shims.vue.d.ts"  ],
+  "exclude": [
+    "node_modules",
+    "**/stories"
+  ]
+}
