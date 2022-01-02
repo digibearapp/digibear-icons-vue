@@ -1,20 +1,20 @@
-#!/usr/bin/env node
-const fs = require("fs");
-const chalk = require("chalk");
-const paths = require('./paths');
-const constants = require('./constants');
-const { allNames } = require('@digibearapp/digibear-svg-icons');
-const { prefixName } = require("./utils");
+import fs from "fs";
+import chalk from "chalk";
+import * as paths from "./paths.mjs";
+import * as constants from "./constants.mjs";
+import { allIconsMap } from "@digibearapp/digibear-svg-icons/dist/esm/index.js";
+import { prefixName } from "./utils.mjs";
 
-function generateDbStories() {
-    let imports = allNames.map(name => prefixName(name)).join(",\n\t\t");
-    let options = allNames.map(key => `"${key}"`).join(",\n\t\t\t\t");
-    let fileLines = generateStoriesFileLines(imports, options);
-    createStoriesFile(fileLines);
+export function generateDbStories() {
+  const allNames = Object.keys(allIconsMap);
+  let imports = allNames.map((name) => prefixName(name)).join(",\n\t\t");
+  let options = allNames.map((key) => `"${key}"`).join(",\n\t\t\t\t");
+  let fileLines = generateStoriesFileLines(imports, options);
+  createStoriesFile(fileLines);
 }
 
 function generateStoriesFileLines(imports, options) {
-    return `\
+  return `\
 ${constants.HEADER}
 import { DbIcon } from '../components';
 import { DbIconProps } from "@digibearapp/digibear-common-types";
@@ -74,22 +74,20 @@ Icon.args = {
 	flippedV: false,
 };
 
-`
+`;
 }
 
 function createStoriesFile(fileLines) {
-    try {
-        fs.writeFileSync(paths.STORIES_PATH, fileLines);
-        console.log(`${chalk.inverse.green(" DONE ")} DbIcon.stories.tsx created.`);
-    } catch (err) {
-        console.error(
-            `${chalk.inverse.red(" FAIL ")} Failed to created DbIcon.stories.tsx.`
-        );
-        console.group();
-        console.error(err);
-        console.groupEnd();
-        return;
-    }
+  try {
+    fs.writeFileSync(paths.STORIES_PATH, fileLines);
+    console.log(`${chalk.inverse.green(" DONE ")} DbIcon.stories.tsx created.`);
+  } catch (err) {
+    console.error(
+      `${chalk.inverse.red(" FAIL ")} Failed to created DbIcon.stories.tsx.`
+    );
+    console.group();
+    console.error(err);
+    console.groupEnd();
+    return;
+  }
 }
-
-module.exports = { generateDbStories };
